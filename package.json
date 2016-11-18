@@ -1,0 +1,27 @@
+{
+  "name": "the-list-cycle",
+  "version": "1.0.0",
+  "description": "A little script which maintains a twitter list of people you've interacted with recently",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drzax/the-list-cycle.git"
+  },
+  "keywords": [
+    "twitter",
+    "list",
+    "automation"
+  ],
+  "author": "Simon Elvery",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drzax/the-list-cycle/issues"
+  },
+  "homepage": "https://github.com/drzax/the-list-cycle#readme",
+  "dependencies": {
+    "twitter-list-manager": "^2.0.0-beta1"
+  }
+}
