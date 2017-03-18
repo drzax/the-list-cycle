@@ -29,7 +29,7 @@ This thing has been Dockerized for convenient periodic updates in the cloud.
 ```
 docker run -d --name cycle \
 	-e TWITTER_OAUTH_CONSUMER_KEY=<seekrit> \
-	-e  TWITTER_OAUTH_CONSUMER_SECRET=<seekrit> \
+	-e TWITTER_OAUTH_CONSUMER_SECRET=<seekrit> \
 	-e TWITTER_USER_ID=<userid> \
 	-e TWITTER_SCREEN_NAME=<username> \
 	-e TWITTER_OAUTH_ACCESS_TOKEN_KEY=<seekrit> \
