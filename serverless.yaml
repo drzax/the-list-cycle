@@ -1,0 +1,25 @@
+service: list-cycle
+
+provider:
+  name: google
+  runtime: nodejs8
+  project: sharp-cosmos-234905
+  credentials: ~/.gcloud/the-list-cycle-744fccc90626.json
+  environment:
+    TWITTER_OAUTH_CONSUMER_KEY: ${env:TWITTER_OAUTH_CONSUMER_KEY}
+    TWITTER_OAUTH_CONSUMER_SECRET: ${env:TWITTER_OAUTH_CONSUMER_SECRET}
+    TWITTER_USER_ID: ${env:TWITTER_USER_ID}
+    TWITTER_SCREEN_NAME: ${env:TWITTER_SCREEN_NAME}
+    TWITTER_OAUTH_ACCESS_TOKEN_KEY: ${env:TWITTER_OAUTH_ACCESS_TOKEN_KEY}
+    TWITTER_OAUTH_ACCESS_TOKEN_SECRET: ${env:TWITTER_OAUTH_ACCESS_TOKEN_SECRET}
+
+plugins:
+  - serverless-google-cloudfunctions
+
+functions:
+  first:
+    handler: cycle
+    events:
+      - event:
+          eventType: providers/cloud.pubsub/eventTypes/topic.publish
+          resource: projects/sharp-cosmos-234905/topics/list-cycle

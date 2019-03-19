@@ -1,5 +1,4 @@
-The List Cycle
-==============
+# The List Cycle
 
 A little process which cycles Twitter users on and off a list based on interactions recency of interaction.
 
@@ -7,38 +6,40 @@ The idea is that it will use one of your Twitter lists (by default, one called `
 
 The script considers someone you've 'interacted with' as being:
 
--	Anyone who you reply to, mention, retweet or subtweet.
--	Anyone who is mentioned in, or author of a tweet you favourite, retweet or subtweet.
+- Anyone who you reply to, mention, retweet or subtweet.
+- Anyone who is mentioned in, or author of a tweet you favourite, retweet or subtweet.
 
-Usage
------
+## Deployment
 
-You will need a few Twitter credentials. The easiest way to get them is to install [twitter-list-manager](https://github.com/drzax/twitter-list-manager) as a global NPM module and run `tw auth`.
+`npm install`
 
-You'll also need to setup a list on Twitter for the use of the script. To make things easy, I suggest you call it `cycle`.
-
-Then:
-
-`node index.js`
-
-Dockerized
-----------
-
-This thing has been Dockerized for convenient periodic updates in the cloud.
+### Define the following environment variables.
 
 ```
-docker run -d --name cycle \
-	-e TWITTER_OAUTH_CONSUMER_KEY=<seekrit> \
-	-e TWITTER_OAUTH_CONSUMER_SECRET=<seekrit> \
-	-e TWITTER_USER_ID=<userid> \
-	-e TWITTER_SCREEN_NAME=<username> \
-	-e TWITTER_OAUTH_ACCESS_TOKEN_KEY=<seekrit> \
-	-e TWITTER_OAUTH_ACCESS_TOKEN_SECRET=<seekrit> \
-	drzax/list-cycle mantra "0 * * * * *" node index.js
+ TWITTER_OAUTH_CONSUMER_KEY=<seekrit>
+ TWITTER_OAUTH_CONSUMER_SECRET=<seekrit>
+ TWITTER_USER_ID=<userid>
+ TWITTER_SCREEN_NAME=<username>
+ TWITTER_OAUTH_ACCESS_TOKEN_KEY=<seekrit>
+ TWITTER_OAUTH_ACCESS_TOKEN_SECRET=<seekrit>
+ TWITTER_WINDOW="1-month" # optional
+ TWITTER_LIST=cycle # optional
 ```
 
-The container will send errors to STDERR and messages about who has been added or removed from the list to STDOUT. I like to collect them for posterity and do that using [loggly](https://loggly.com) and [logspout](https://github.com/gliderlabs/logspout).
+One way to get these twitter API tokens is is to install [twitter-list-manager](https://github.com/drzax/twitter-list-manager) as a global NPM module and run `tw auth`.
+
+### Setup a twitter list
+
+You'll also need to setup a list on Twitter for the use of the script. The expected default is 'cycle'.
+
+### Setup a [Google Cloud Platform](https://cloud.google.com) project
+
+- Setup project as per the [serverless documentation](https://serverless.com/framework/docs/providers/google/guide/credentials/)
+- Setup a Pub/Sub topic called `list-cycle`
+- Setup a Cloud Scheduler job to message the `list-cycle` pub/sub topic on your chose interval (every hour recommended)
+
+### Finally
 
 ```
-docker run --name logspout -d --volume=/var/run/docker.sock:/var/run/docker.sock -e SYSLOG_STRUCTURED_DATA="<apikey>@41058 tag=\"cycle\"" gliderlabs/logspout syslog+tcp://logs-01.loggly.com:514
+serverless deploy
 ```
