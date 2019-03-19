@@ -1,4 +1,4 @@
-const correspondents = require("./lib/correspondents");
+const { correspondents } = require("./lib/correspondents");
 const listAdd = require("./lib/list-add");
 const listRemove = require("./lib/list-remove");
 const listMembers = require("./lib/list-members");
