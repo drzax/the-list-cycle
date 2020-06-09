@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "A little script which maintains a twitter list of people you've interacted with recently",
   "main": "index.js",
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
   "scripts": {
     "test": "jest"
   },

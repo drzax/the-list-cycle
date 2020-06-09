@@ -2,7 +2,7 @@ service: list-cycle
 
 provider:
   name: google
-  runtime: nodejs8
+  runtime: nodejs10
   project: sharp-cosmos-234905
   credentials: ~/.gcloud/the-list-cycle-744fccc90626.json
   environment:
